@@ -1,0 +1,33 @@
+ไอเดียแอพแนะนำร้านอาหารและคาเฟ่สำหรับวัยรุ่น (Must-Go for Teens)
+
+Concept: ร้านที่วัยรุ่นไม่ควรพลาด เน้นคอนเทนต์ Vibe และความทันสมัย
+
+Visual First (เน้นความสวยงาม)
+
+Photo Spot Score: คะแนนมุมถ่ายรูปสวย / แสงดี
+
+Vibe Tags: #Minimal #Y2K #Loft #เกาหลีทิพย์ #Street
+
+OOTD Matcher (ฟีเจอร์เด็ด!)
+
+Color Palette: บอกโทนสีหลักของร้าน
+
+Outfit Suggestion: แนะนำสีเสื้อผ้าที่ใส่แล้วขึ้นกล้องกับร้านนี้
+
+Trending Now (ตามกระแส)
+
+Viral on TikTok: ร้านที่กำลังดังใน Social Media
+
+Hidden Gems: ร้านลับ Exclusive ที่คนยังไม่ค่อยรู้
+
+Teen Filters (ตัวกรองโดนใจวัยรุ่น)
+
+Budget: ราคาประหยัด (สิ้นเดือน) / หรูหรา (วันเกิด/เดท)
+
+Activities: มีตู้สติ๊กเกอร์ (Photobooth), บอร์ดเกม, นั่งทำการบ้านได้
+
+UI/UX
+
+ดีไซน์สนุก หรือคลีนแบบ Pinterest
+
+ใช้รูปภาพใหญ่ เน้น Feed คล้าย IG/TikTok
