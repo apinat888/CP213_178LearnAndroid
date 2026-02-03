@@ -1,5 +1,6 @@
 package com.example.a178lablearnandroid
 
+import android.content.Intent
 import android.os.Bundle
 import android.telephony.SignalStrength
 import androidx.activity.ComponentActivity
@@ -39,6 +40,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
+
             Column(modifier = Modifier
                 .fillMaxSize()
                 .background(color = Color.Gray)
@@ -68,6 +70,9 @@ class MainActivity : ComponentActivity() {
                         .size(size = 128.dp)
                         .align(Alignment.CenterHorizontally)
                         .padding(top = 16.dp)
+                        .clickable() {
+                            startActivity(Intent(this@MainActivity, ListMainActivity::class.java))
+                        }
                 )
                 //status
                 Row(
@@ -75,6 +80,8 @@ class MainActivity : ComponentActivity() {
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     var str:Int by remember { mutableStateOf(10) }
+                    var agi:Int by remember { mutableStateOf(10) }
+                    var int:Int by remember { mutableStateOf(10) }
                     Column() {
                         Button(onClick = {str = str+1}) {
                             Text(text = "+", fontSize = 32.sp)
@@ -87,12 +94,26 @@ class MainActivity : ComponentActivity() {
                             })
                     }
                     Column() {
-                        Text(text = "Agi: 8", fontSize = 32.sp)
-                        Text(text = "8", fontSize = 32.sp)
+                        Button(onClick = {agi = agi+1}) {
+                            Text(text = "+", fontSize = 32.sp)
+                        }
+                        Text(text = "Agi", fontSize = 32.sp)
+                        Text(text = agi.toString(), fontSize = 32.sp)
+                        Text(text = "-", fontSize = 32.sp,
+                            modifier = Modifier.clickable {
+                                agi = agi-1
+                            })
                     }
                     Column() {
-                        Text(text = "Int: 9", fontSize = 32.sp)
-                        Text(text = "8", fontSize = 32.sp)
+                        Button(onClick = {int = int+1}) {
+                            Text(text = "+", fontSize = 32.sp)
+                        }
+                        Text(text = "Int", fontSize = 32.sp)
+                        Text(text = int.toString(), fontSize = 32.sp)
+                        Text(text = "-", fontSize = 32.sp,
+                            modifier = Modifier.clickable {
+                                int = int-1
+                            })
                     }
                 }
             }
