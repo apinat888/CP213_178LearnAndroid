@@ -2,4 +2,5 @@
     <string name="app_name">178LabLearnAndroid</string>
     <string name="title_activity_main2">MainActivity2</string>
     <string name="title_activity_list_main">ListMainActivity</string>
+    <string name="title_activity_menu3">MenuActivity3</string>
 </resources>
