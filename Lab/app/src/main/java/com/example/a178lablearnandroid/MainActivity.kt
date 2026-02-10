@@ -64,7 +64,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier
                         .size(300.dp)
                         .align(Alignment.CenterHorizontally)
-                        .padding(top= 78.dp)
+                        .padding(top= 16.dp)
                         .clickable() {
                             startActivity(Intent(this@MainActivity, MainActivity2::class.java))
                         }
