@@ -3,4 +3,6 @@
     <string name="title_activity_main2">MainActivity2</string>
     <string name="title_activity_list_main">ListMainActivity</string>
     <string name="title_activity_menu3">MenuActivity3</string>
+    <string name="title_activity_list">My List</string>
+    <string name="title_activity_menu">Main Menu</string>
 </resources>
