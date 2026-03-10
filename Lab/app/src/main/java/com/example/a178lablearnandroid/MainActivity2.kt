@@ -82,3 +82,4 @@ fun LifecycleComponent() {
 fun GreetingPreview2() {
     LifecycleDemo()
 }
+//jraa
