@@ -21,6 +21,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import android.Manifest
+import android.content.pm.PackageManager
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.platform.LocalContext
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 class MainActivity2 : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +40,7 @@ class MainActivity2 : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                LifecycleDemo(modifier = Modifier.padding(innerPadding))
+                SensorScreen(modifier = Modifier.padding(innerPadding))
             }
         }
     }
@@ -82,4 +94,61 @@ fun LifecycleComponent() {
 fun GreetingPreview2() {
     LifecycleDemo()
 }
-//jraa
+
+@Composable
+fun SensorScreen(modifier: Modifier = Modifier, viewModel: SensorViewModel = viewModel()) {
+    val accel by viewModel.accelerometerData.collectAsState()
+    val location by viewModel.locationData.collectAsState()
+    val context = LocalContext.current
+    var hasLocationPermission by remember {
+        mutableStateOf(
+            ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
+            ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+        )
+    }
+
+    val permissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        hasLocationPermission = permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true ||
+                              permissions[Manifest.permission.ACCESS_COARSE_LOCATION] == true
+    }
+
+    LaunchedEffect(hasLocationPermission) {
+        if (hasLocationPermission) {
+            viewModel.startLocationUpdates()
+        } else {
+            permissionLauncher.launch(
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
+            )
+        }
+    }
+
+    Column(modifier = modifier.padding(16.dp)) {
+        Text(text = "Accelerometer Data", style = MaterialTheme.typography.headlineSmall)
+        Text(text = "X: ${accel[0]}")
+        Text(text = "Y: ${accel[1]}")
+        Text(text = "Z: ${accel[2]}")
+        
+        Spacer(modifier = Modifier.height(32.dp))
+        
+        Text(text = "Location Data", style = MaterialTheme.typography.headlineSmall)
+        if (hasLocationPermission) {
+            if (location != null) {
+                Text(text = "Lat: ${location?.latitude}")
+                Text(text = "Lng: ${location?.longitude}")
+            } else {
+                Text(text = "Waiting for location...")
+            }
+        } else {
+            Text(text = "Location permission denied.")
+            Button(onClick = {
+                permissionLauncher.launch(
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
+                )
+            }) {
+                Text("Request Permission")
+            }
+        }
+    }
+}

@@ -29,6 +29,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import android.net.Uri
+import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.ui.platform.LocalContext
+import coil.compose.AsyncImage
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +44,23 @@ class MainActivity : ComponentActivity() {
             Column(modifier = Modifier.fillMaxSize()
                 .background(color=Color.Cyan)
                 .padding(32.dp))  {
+                val context = LocalContext.current
+                var imageUri by remember { mutableStateOf<Uri?>(null) }
+
+                val galleryLauncher = rememberLauncherForActivityResult(
+                    contract = ActivityResultContracts.GetContent()
+                ) { uri: Uri? ->
+                    imageUri = uri
+                }
+
+                val permissionLauncher = rememberLauncherForActivityResult(
+                    contract = ActivityResultContracts.RequestPermission()
+                ) { isGranted: Boolean ->
+                    if (isGranted) {
+                        galleryLauncher.launch("image/*")
+                    }
+                }
+
                 //hp
                 Box(modifier = Modifier
                     .fillMaxWidth()
@@ -58,19 +81,52 @@ class MainActivity : ComponentActivity() {
                 }
 
                 //image
-                Image(
-                    painter = painterResource(id = R.drawable.thomas),
-                    contentDescription = "Profile",
-                    modifier = Modifier
-                        .size(300.dp)
-                        .align(Alignment.CenterHorizontally)
-                        .padding(top= 16.dp)
-                        .clickable() {
-                            startActivity(Intent(this@MainActivity, MainActivity2::class.java))
+                if (imageUri != null) {
+                    AsyncImage(
+                        model = imageUri,
+                        contentDescription = "Profile",
+                        modifier = Modifier
+                            .size(300.dp)
+                            .align(Alignment.CenterHorizontally)
+                            .padding(top= 16.dp)
+                            .clickable {
+                                context.startActivity(Intent(context, MainActivity2::class.java))
+                            }
+                    )
+                } else {
+                    Image(
+                        painter = painterResource(id = R.drawable.thomas),
+                        contentDescription = "Profile",
+                        modifier = Modifier
+                            .size(300.dp)
+                            .align(Alignment.CenterHorizontally)
+                            .padding(top= 16.dp)
+                            .clickable {
+                                context.startActivity(Intent(context, MainActivity2::class.java))
+                            }
+                    )
+                }
+
+                Button(
+                    onClick = {
+                        val permission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                            android.Manifest.permission.READ_MEDIA_IMAGES
+                        } else {
+                            android.Manifest.permission.READ_EXTERNAL_STORAGE
                         }
 
-
-                )
+                        if (androidx.core.content.ContextCompat.checkSelfPermission(context, permission) == android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                            galleryLauncher.launch("image/*")
+                        } else {
+                            permissionLauncher.launch(permission)
+                        }
+                    },
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .padding(top = 8.dp)
+                ) {
+                    Text("เลือกรูปภาพ")
+                }
 
 
                 //status
