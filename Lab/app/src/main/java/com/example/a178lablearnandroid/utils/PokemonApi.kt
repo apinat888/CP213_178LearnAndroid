@@ -1,11 +1,10 @@
-package com.example.a178lablearnandroid.Utils
+package com.example.a178lablearnandroid.utils
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 
 // --- ส่วนที่ 1: Data Model (โครงสร้างข้อมูลตาม JSON) ---
-// โครงสร้าง JSON ของ PokeAPI: https://pokeapi.co/api/v2/pokedex/2/
 data class PokedexResponse(
     val pokemon_entries: List<PokemonEntry>
 )
@@ -20,23 +19,21 @@ data class PokemonSpecies(
     val url: String
 )
 
-// --- ส่วนที่ 2: API Interface (เมนูสั่งอาหาร) ---
+// --- ส่วนที่ 2: API Interface ---
 interface PokemonApiService {
-    @GET("pokedex/2/") // Endpoint ที่เราจะเรียก
+    @GET("pokedex/2/") 
     suspend fun getKantoPokedex(): PokedexResponse
 }
 
-// --- ส่วนที่ 3: Singleton Instance (ตัวจัดการการเชื่อมต่อ) ---
+// --- ส่วนที่ 3: Singleton Instance ---
 object PokemonNetwork {
     private const val BASE_URL = "https://pokeapi.co/api/v2/"
 
-    // สร้างตัว Retrofit เพียงครั้งเดียวเพื่อประหยัดทรัพยากร
     val api: PokemonApiService by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create()) // ตัวแปลง JSON
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(PokemonApiService::class.java)
     }
-
 }

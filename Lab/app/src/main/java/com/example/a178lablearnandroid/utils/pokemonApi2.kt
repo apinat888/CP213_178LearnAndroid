@@ -2,8 +2,6 @@ package com.example.a178lablearnandroid.utils
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.a178lablearnandroid.Utils.PokemonEntry
-import com.example.a178lablearnandroid.Utils.PokemonNetwork
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch

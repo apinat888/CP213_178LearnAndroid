@@ -28,18 +28,17 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.a178lablearnandroid.utils.PokemonViewModel
-
+import com.example.a178lablearnandroid.utils.PokemonEntry
 
 class PokedexActivity : ComponentActivity() {
-
     private val viewModel: PokemonViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.i("Lifecycle", "PokedexActivity : onCreate")
         enableEdgeToEdge()
         setContent {
             PokedexScreen(viewModel)
@@ -48,54 +47,47 @@ class PokedexActivity : ComponentActivity() {
 }
 
 @Composable
-fun PokedexScreen(viewModel: PokemonViewModel) {
-
+fun PokedexScreen(viewModel: PokemonViewModel = viewModel()) {
     val pokemonList by viewModel.pokemonList.collectAsState()
 
-    // ท่าง่าย
     Column(modifier = Modifier.fillMaxSize().background(Color.Red).padding(16.dp)) {
         Column(modifier = Modifier.fillMaxSize().background(Color.Gray).padding(16.dp)) {
             LazyColumn(modifier = Modifier.fillMaxSize().background(Color.White).padding(16.dp)) {
                 items(pokemonList) { item ->
-                    Row(
-                        modifier = Modifier.padding(8.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Center) {
-                        Text(text= item.entry_number.toString())
-                        Spacer(modifier = Modifier.width(16.dp))
-                        Text(text= item.pokemon_species.name)
-
-                        val imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${item.entry_number}.png"
-
-                        AsyncImage(
-                            model = ImageRequest.Builder(LocalContext.current)
-                                .data(imageUrl)
-                                .listener(
-                                    onStart = {
-                                        Log.d("AsyncImage", "Start loading: $imageUrl")
-                                    },
-                                    onError = { _, result ->
-                                        Log.e("AsyncImage", "Error loading: $imageUrl", result.throwable)
-                                    },
-                                    onSuccess = { _, _ ->
-                                        Log.d("AsyncImage", "Success loading: $imageUrl")
-                                    }
-                                )
-                                .build(),
-                            contentDescription = "Sprite of ${item.pokemon_species.name}",
-                            modifier = Modifier.size(64.dp),
-                            placeholder = painterResource(id = R.drawable.ic_launcher_foreground),
-                            error = painterResource(id = R.drawable.ic_launcher_background)
-                        )
-                    }
+                    PokemonRow(item)
                 }
             }
         }
     }
 }
 
+@Composable
+fun PokemonRow(item: PokemonEntry) {
+    Row(
+        modifier = Modifier.padding(8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
+        Text(text = item.entry_number.toString())
+        Spacer(modifier = Modifier.width(16.dp))
+        Text(text = item.pokemon_species.name)
+
+        val imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${item.entry_number}.png"
+
+        AsyncImage(
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(imageUrl)
+                .build(),
+            contentDescription = null,
+            modifier = Modifier.size(64.dp),
+            placeholder = painterResource(id = R.drawable.ic_launcher_foreground),
+            error = painterResource(id = R.drawable.ic_launcher_background)
+        )
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun PokedexPreview() {
-    PokedexScreen(PokemonViewModel())
+    PokedexScreen()
 }
