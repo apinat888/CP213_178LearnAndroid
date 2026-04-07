@@ -87,6 +87,20 @@
             android:exported="false"
             android:theme="@style/Theme._178LabLearnAndroid" />
 
+        <activity
+            android:name=".Part10Activity"
+            android:exported="false"
+            android:theme="@style/Theme._178LabLearnAndroid" />
+
+        <activity
+            android:name=".Part11Activity"
+            android:exported="false"
+            android:theme="@style/Theme._178LabLearnAndroid" />
+
+        <activity
+            android:name=".Part12Activity"
+            android:exported="false"
+            android:theme="@style/Theme._178LabLearnAndroid" />
 
     </application>
 </manifest>

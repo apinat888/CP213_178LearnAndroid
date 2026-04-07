@@ -102,6 +102,34 @@ class MenuActivity : ComponentActivity() {
                         navigateTo(Part8Activity::class.java, R.anim.slide_in_left, R.anim.slide_out_right)
                     }
                 )
+                MenuButton(
+                    title = "Part9Activity",
+                    transitionType = "Slide Left to Right",
+                    onClick = {
+                        navigateTo(Part9Activity::class.java, R.anim.slide_in_left, R.anim.slide_out_right)
+                    }
+                )
+                MenuButton(
+                    title = "Part10Activity",
+                    transitionType = "Slide Left to Right",
+                    onClick = {
+                        navigateTo(Part10Activity::class.java, R.anim.slide_in_left, R.anim.slide_out_right)
+                    }
+                )
+                MenuButton(
+                    title = "Part11Activity",
+                    transitionType = "Slide Left to Right",
+                    onClick = {
+                        navigateTo(Part11Activity::class.java, R.anim.slide_in_left, R.anim.slide_out_right)
+                    }
+                )
+                MenuButton(
+                    title = "Part12Activity",
+                    transitionType = "Slide Left to Right",
+                    onClick = {
+                        navigateTo(Part12Activity::class.java, R.anim.slide_in_left, R.anim.slide_out_right)
+                    }
+                )
             }
         }
     }
