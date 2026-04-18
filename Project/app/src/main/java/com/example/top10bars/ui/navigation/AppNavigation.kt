@@ -125,12 +125,12 @@ fun AppNavigation() {
                         }
                     }
                 )
-                FavoritesScreen(viewModel) { barId ->
+                FavoritesScreen(viewModel, hasLocationPermission) { barId ->
                     navController.navigate(Screen.Detail.createRoute(barId))
                 }
             }
             composable(Screen.Profile.route) {
-                ProfileScreen()
+                ProfileScreen(favoritesManager)
             }
             composable(Screen.Detail.route) { backStackEntry ->
                 val barId = backStackEntry.arguments?.getString("barId") ?: return@composable
