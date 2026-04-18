@@ -22,7 +22,7 @@ class BarRepository {
             id = "1",
             name = "Vesper Bar",
             description = "Classic cocktail bar with a modern twist.",
-            imageUrls = listOf("https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b", "https://images.unsplash.com/photo-1470337458703-46ad1756a187"),
+            imageUrls = listOf("https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/3f/68/21/vesper-bar.jpg?w=900&h=500&s=1"),
             type = "Cocktail",
             locationLat = 13.725900,
             locationLng = 100.533200,
@@ -39,7 +39,7 @@ class BarRepository {
             id = "2",
             name = "Rabbit Hole",
             description = "Premium speakeasy bar hidden in Thong Lo.",
-            imageUrls = listOf("https://images.unsplash.com/photo-1542556398-e7c617b07db2"),
+            imageUrls = listOf("https://static1.squarespace.com/static/5a5320c8e45a7c0deb541657/t/5a532fc8c830256b61bc2fab/1515401167131/S__13082642.jpg"),
             type = "Speakeasy",
             locationLat = 13.729900,
             locationLng = 100.581500,
@@ -56,7 +56,7 @@ class BarRepository {
             id = "3",
             name = "Teens of Thailand",
             description = "The first gin bar in Thailand, located in Soi Nana.",
-            imageUrls = listOf("https://images.unsplash.com/photo-1436018626274-89acd1d6ec9d"),
+            imageUrls = listOf("https://www.theworlds50best.com/discovery/filestore/jpg/TeensOfThailand-Bangkok-Thailand-01.jpg"),
             type = "Cocktail",
             locationLat = 13.738800,
             locationLng = 100.514000,
@@ -73,7 +73,7 @@ class BarRepository {
             id = "4",
             name = "Sky Bar",
             description = "Iconic rooftop bar located at Lebua.",
-            imageUrls = listOf("https://images.unsplash.com/photo-1551024709-8f23befc6f87"),
+            imageUrls = listOf("https://lebua.com/wp-content/uploads/2019/04/48-Sky-Bar-Angle-1-scaled.jpg"),
             type = "Rooftop",
             locationLat = 13.721400,
             locationLng = 100.517000,
@@ -90,7 +90,7 @@ class BarRepository {
             id = "5",
             name = "Iron Fairies",
             description = "Whimsical jazz bar with magical interior.",
-            imageUrls = listOf("https://images.unsplash.com/photo-1563298723-dcfebaa392e3"),
+            imageUrls = listOf("https://fuzion.co.th/wp-content/uploads/2025/03/iron-fairies-music-bar-002.webp"),
             type = "Jazz",
             locationLat = 13.730300,
             locationLng = 100.581500,
@@ -107,7 +107,7 @@ class BarRepository {
             id = "6",
             name = "Maggie Choo's",
             description = "Immersive lounge with an Asian 1930s theme.",
-            imageUrls = listOf("https://images.unsplash.com/photo-1574096079513-d8259312b78a"),
+            imageUrls = listOf("https://luxecityguides.com/wp-content/uploads/2021/04/110018131774-didd2Bo.original.jpg"),
             type = "Lounge",
             locationLat = 13.723500,
             locationLng = 100.521800,
@@ -124,7 +124,7 @@ class BarRepository {
             id = "7",
             name = "Sugar Ray",
             description = "Hip rooftop and speakeasy venue.",
-            imageUrls = listOf("https://images.unsplash.com/photo-1510626176961-4b57d4fbad03"),
+            imageUrls = listOf("https://static.bkkmenu.com/files/2018/07/Sugarrays4-1005x670.jpg"),
             type = "Rooftop",
             locationLat = 13.730200,
             locationLng = 100.569400,
@@ -141,7 +141,7 @@ class BarRepository {
             id = "8",
             name = "Havana Social",
             description = "Secret Cuban-themed club.",
-            imageUrls = listOf("https://images.unsplash.com/photo-1566417713940-fe7c737a9ef2"),
+            imageUrls = listOf("https://wnfdiary.com/wp-content/uploads/2019/01/havana-social-bangkok-7.jpg"),
             type = "Speakeasy",
             locationLat = 13.743100,
             locationLng = 100.556200,
@@ -158,7 +158,7 @@ class BarRepository {
             id = "9",
             name = "Sing Sing Theater",
             description = "Cinematic club with top DJs and Chinese motif.",
-            imageUrls = listOf("https://images.unsplash.com/photo-1561501878-aabd62634533"),
+            imageUrls = listOf("https://www.ashleysuttondesign.com/wp-content/uploads/2016/12/Sing-Sing-Theater-1.jpg"),
             type = "Club",
             locationLat = 13.731400,
             locationLng = 100.573200,
@@ -175,7 +175,7 @@ class BarRepository {
             id = "10",
             name = "Saxophone Pub",
             description = "Legendary live jazz and blues venue.",
-            imageUrls = listOf("https://images.unsplash.com/photo-1510464245749-bb17208e2ec1"),
+            imageUrls = listOf("https://dynamic-media-cdn.tripadvisor.com/media/photo-o/24/bf/58/8f/caption.jpg?w=1200&h=1200&s=1"),
             type = "Jazz",
             locationLat = 13.763400,
             locationLng = 100.538100,
@@ -187,6 +187,26 @@ class BarRepository {
             musicVibe = "Live Jazz & Blues",
             openTime = "18:00",
             closeTime = "01:30"
+        ),
+        Bar(
+            id = "11", // ตั้ง ID ให้ไม่ซ้ำกับร้านอื่น
+            name = "Widdershins",
+            description = "คำอธิบายร้านสั้นๆ",
+            imageUrls = listOf("https://siam2nite.media/-GarGPoYnMNuec_Xk0iMLePZCXY=/1280x960/smart/locations/3082/cover_large_p1f287pv5o1f301aer16991vtb1e5m5.jpg"),
+            type = "Cocktail", // เช่น Rooftop, Cocktail, Jazz
+            locationLat = 13.74048, // ละติจูด (หาได้จาก Google Maps)
+            locationLng = 100.51084, // ลองจิจูด
+            address = "2, 438 Yaowarat Rd, Samphanthawong, Bangkok 10100",
+            rating = 4.7f,
+            priceLevel = "฿฿", // ระดับราคา
+            phone = "095-987-9239",
+            signatureDrinks = listOf(
+                MenuItem("ชื่อเครื่องดื่มแนะนำ 1", 300),
+                MenuItem("ชื่อเครื่องดื่มแนะนำ 2", 350)
+            ),
+            musicVibe = "สไตล์เพลง",
+            openTime = "18:00",
+            closeTime = "00:00"
         )
     )
 }

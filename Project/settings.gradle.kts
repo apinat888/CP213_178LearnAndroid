@@ -16,5 +16,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Top10Bars"
+rootProject.name = "NightPick"
 include(":app")
