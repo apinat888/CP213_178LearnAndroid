@@ -191,7 +191,7 @@ class BarRepository {
         Bar(
             id = "11", // ตั้ง ID ให้ไม่ซ้ำกับร้านอื่น
             name = "Widdershins",
-            description = "คำอธิบายร้านสั้นๆ",
+            description = "A mystical retreat where time turns counter-clockwise into the world of the occult.",
             imageUrls = listOf("https://siam2nite.media/-GarGPoYnMNuec_Xk0iMLePZCXY=/1280x960/smart/locations/3082/cover_large_p1f287pv5o1f301aer16991vtb1e5m5.jpg"),
             type = "Cocktail", // เช่น Rooftop, Cocktail, Jazz
             locationLat = 13.74048, // ละติจูด (หาได้จาก Google Maps)
@@ -201,12 +201,32 @@ class BarRepository {
             priceLevel = "฿฿", // ระดับราคา
             phone = "095-987-9239",
             signatureDrinks = listOf(
-                MenuItem("ชื่อเครื่องดื่มแนะนำ 1", 300),
-                MenuItem("ชื่อเครื่องดื่มแนะนำ 2", 350)
+                MenuItem("Naturals", 550),
+                MenuItem("Jack's Favourite", 350)
             ),
-            musicVibe = "สไตล์เพลง",
+            musicVibe = "Jazz & Blues",
             openTime = "18:00",
             closeTime = "00:00"
+        ),
+        Bar(
+                id = "12", // ตั้ง ID ให้ไม่ซ้ำกับร้านอื่น
+        name = "mil social club",
+        description = "A vibrant social hub blending modern art deco aesthetics with craft spirits and a lively community vibe.",
+        imageUrls = listOf("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5Lh3nAxDA7pYz_NpWtnx1dHfFMAjreSGOzA&s"),
+        type = "Club", // เช่น Rooftop, Cocktail, Jazz
+        locationLat = 13.73483, // ละติจูด (หาได้จาก Google Maps)
+        locationLng = 100.58185, // ลองจิจูด
+        address = "3rd Floor, Market Place, 15 Thong Lo, Khlong Tan Nuea, Watthana, Bangkok 10110",
+        rating = 4.5f,
+        priceLevel = "฿฿฿", // ระดับราคา
+        phone = "091-549-4426",
+        signatureDrinks = listOf(
+            MenuItem("Space", 550),
+            MenuItem("Elledecor", 650)
+        ),
+        musicVibe = "Hip-Hop,R&B",
+        openTime = "20:30",
+        closeTime = "03:30"
         )
     )
 }
