@@ -19,6 +19,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.top10bars.data.local.FavoritesManager
+import com.example.top10bars.data.local.NotificationManager
+import com.example.top10bars.data.local.ThemeManager
+import com.example.top10bars.data.local.UserManager
 import com.example.top10bars.data.repository.BarRepository
 import com.example.top10bars.ui.screens.detail.DetailScreen
 import com.example.top10bars.ui.screens.detail.DetailViewModel
@@ -27,12 +30,12 @@ import com.example.top10bars.ui.screens.favorites.FavoritesViewModel
 import com.example.top10bars.ui.screens.home.HomeScreen
 import com.example.top10bars.ui.screens.home.HomeViewModel
 import com.example.top10bars.ui.screens.profile.ProfileScreen
-import com.example.top10bars.ui.theme.DarkSurface
+import com.example.top10bars.ui.screens.splash.SplashScreen
 import com.example.top10bars.ui.theme.PurpleAccent
-import com.example.top10bars.ui.theme.TextSecondary
-import com.example.top10bars.ui.theme.TextPrimary
+import kotlinx.coroutines.launch
 
 sealed class Screen(val route: String, val title: String, val icon: androidx.compose.ui.graphics.vector.ImageVector?) {
+    object Splash : Screen("splash", "Splash", null)
     object Home : Screen("home", "Home", Icons.Filled.Home)
     object Favorites : Screen("favorites", "Favorites", Icons.Filled.Favorite)
     object Profile : Screen("profile", "Profile", Icons.Filled.Person)
@@ -42,13 +45,15 @@ sealed class Screen(val route: String, val title: String, val icon: androidx.com
 }
 
 @Composable
-fun AppNavigation() {
+fun AppNavigation(themeManager: ThemeManager) {
     val navController = rememberNavController()
     val context = LocalContext.current
     
     // Dependencies
     val repository = remember { BarRepository() }
     val favoritesManager = remember { FavoritesManager(context) }
+    val userManager = remember { UserManager(context) }
+    val notificationManager = remember { NotificationManager(context) }
 
     var hasLocationPermission by remember { mutableStateOf(false) }
 
@@ -71,8 +76,8 @@ fun AppNavigation() {
             
             if (currentRoute in items.map { it.route }) {
                 NavigationBar(
-                    containerColor = DarkSurface,
-                    contentColor = TextPrimary
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    contentColor = MaterialTheme.colorScheme.onSurface
                 ) {
                     items.forEach { screen ->
                         NavigationBarItem(
@@ -89,9 +94,9 @@ fun AppNavigation() {
                             colors = NavigationBarItemDefaults.colors(
                                 selectedIconColor = PurpleAccent,
                                 selectedTextColor = PurpleAccent,
-                                unselectedIconColor = TextSecondary,
-                                unselectedTextColor = TextSecondary,
-                                indicatorColor = DarkSurface
+                                unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                                unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                                indicatorColor = MaterialTheme.colorScheme.surfaceVariant
                             )
                         )
                     }
@@ -101,11 +106,17 @@ fun AppNavigation() {
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = Screen.Home.route,
+            startDestination = Screen.Splash.route,
             modifier = Modifier.padding(innerPadding)
         ) {
+            composable(Screen.Splash.route) {
+                SplashScreen {
+                    navController.navigate(Screen.Home.route) {
+                        popUpTo(Screen.Splash.route) { inclusive = true }
+                    }
+                }
+            }
             composable(Screen.Home.route) {
-                // simple viewmodel factory to pass dependencies
                 val viewModel: HomeViewModel = viewModel(
                     factory = object : androidx.lifecycle.ViewModelProvider.Factory {
                         override fun <T : androidx.lifecycle.ViewModel> create(modelClass: Class<T>): T {
@@ -130,7 +141,7 @@ fun AppNavigation() {
                 }
             }
             composable(Screen.Profile.route) {
-                ProfileScreen(favoritesManager)
+                ProfileScreen(favoritesManager, themeManager, userManager, notificationManager)
             }
             composable(Screen.Detail.route) { backStackEntry ->
                 val barId = backStackEntry.arguments?.getString("barId") ?: return@composable

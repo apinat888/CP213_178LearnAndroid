@@ -48,6 +48,10 @@ class HomeViewModel(
         }
     }
 
+    fun getRandomBar(): Bar? {
+        return _bars.value.randomOrNull()
+    }
+
     fun onSearchQueryChanged(query: String) {
         _searchQuery.value = query
     }

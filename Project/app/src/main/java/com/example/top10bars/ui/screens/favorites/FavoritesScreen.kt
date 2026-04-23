@@ -17,7 +17,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.top10bars.ui.components.BarCard
-import com.example.top10bars.ui.theme.DarkBackground
 import com.example.top10bars.ui.theme.TextSecondary
 import com.example.top10bars.utils.LocationHelper
 import kotlinx.coroutines.flow.collectLatest
@@ -45,12 +44,13 @@ fun FavoritesScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(DarkBackground)
+            .background(MaterialTheme.colorScheme.background)
             .padding(16.dp)
     ) {
         Text(
             text = "ร้านโปรดของคุณ",
             style = MaterialTheme.typography.titleLarge,
+            color = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
@@ -58,7 +58,7 @@ fun FavoritesScreen(
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 Text(
                     text = "ยังไม่มีร้านโปรด\nกดหัวใจเพื่อบันทึกร้านที่ชอบ",
-                    color = TextSecondary,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     textAlign = TextAlign.Center
                 )
             }

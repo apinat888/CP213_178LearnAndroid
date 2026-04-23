@@ -35,4 +35,9 @@ class FavoritesManager(context: Context) {
     fun isFavorite(barId: String): Boolean {
         return _favoritesIds.value.contains(barId)
     }
+
+    fun clearAll() {
+        _favoritesIds.value = emptySet()
+        prefs.edit().remove("favorites").apply()
+    }
 }

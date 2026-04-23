@@ -61,11 +61,18 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
     
+    // Extended Icons (for DarkMode/LightMode)
+    implementation("androidx.compose.material:material-icons-extended")
+    
     // Navigation
     implementation("androidx.navigation:navigation-compose:2.7.7")
     
     // Location
     implementation("com.google.android.gms:play-services-location:21.1.0")
+
+    // Google Maps
+    implementation("com.google.maps.android:maps-compose:4.3.3")
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
 
     // Image Loading (Coil)
     implementation("io.coil-kt:coil-compose:2.5.0")

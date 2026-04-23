@@ -12,12 +12,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Call
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.FavoriteBorder
-import androidx.compose.material.icons.filled.LocationOn
-import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -68,13 +63,34 @@ fun DetailScreen(
     ) {
         // Top Toolbar
         Row(
-            modifier = Modifier.fillMaxWidth().padding(16.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             IconButton(onClick = onBack) {
                 Icon(Icons.Filled.ArrowBack, contentDescription = "Back", tint = TextPrimary)
             }
+            Spacer(modifier = Modifier.weight(1f))
+            
+            // Share Button
+            IconButton(onClick = {
+                val shareText = """
+                    ไปร้านนี้กัน! ${b.name} (${b.type})
+                    ที่อยู่: ${b.address}
+                    เบอร์โทร: ${b.phone}
+                    (ส่งจากแอป NightPick)
+                """.trimIndent()
+                
+                val sendIntent: Intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, shareText)
+                    type = "text/plain"
+                }
+                val shareIntent = Intent.createChooser(sendIntent, "แชร์ร้าน ${b.name} ให้เพื่อน")
+                context.startActivity(shareIntent)
+            }) {
+                Icon(Icons.Filled.Share, contentDescription = "Share", tint = TextPrimary)
+            }
+
             IconButton(onClick = { viewModel.toggleFavorite() }) {
                 Icon(
                     imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
