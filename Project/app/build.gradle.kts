@@ -79,4 +79,7 @@ dependencies {
 
     // Lifecycle ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+
+    // WorkManager for background notifications
+    implementation("androidx.work:work-runtime-ktx:2.9.0")
 }

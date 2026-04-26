@@ -205,7 +205,7 @@ class BarRepository {
                 MenuItem("Jack's Favourite", 350)
             ),
             musicVibe = "Jazz & Blues",
-            openTime = "18:00",
+            openTime = "13:40",
             closeTime = "00:00"
         ),
         Bar(
