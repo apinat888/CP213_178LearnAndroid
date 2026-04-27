@@ -5,8 +5,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.*
@@ -40,6 +42,7 @@ fun ProfileScreen(
     val isDarkTheme by themeManager.isDarkTheme.collectAsState()
     val notificationsEnabled by notificationManager.notificationsEnabled.collectAsState()
     val context = LocalContext.current
+    val scrollState = rememberScrollState()
 
     var showEditDialog by remember { mutableStateOf(false) }
     var showAboutDialog by remember { mutableStateOf(false) }
@@ -47,7 +50,7 @@ fun ProfileScreen(
     var tempName by remember { mutableStateOf("") }
     var tempEmail by remember { mutableStateOf("") }
 
-    // Dialog แก้ไขโปรไฟล์
+    // Dialogs... (เหมือนเดิม)
     if (showEditDialog) {
         AlertDialog(
             onDismissRequest = { showEditDialog = false },
@@ -85,7 +88,6 @@ fun ProfileScreen(
         )
     }
 
-    // Dialog เกี่ยวกับแอป
     if (showAboutDialog) {
         AlertDialog(
             onDismissRequest = { showAboutDialog = false },
@@ -108,7 +110,6 @@ fun ProfileScreen(
         )
     }
 
-    // Dialog ยืนยันออกจากระบบ
     if (showLogoutDialog) {
         AlertDialog(
             onDismissRequest = { showLogoutDialog = false },
@@ -138,15 +139,16 @@ fun ProfileScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
+            .verticalScroll(scrollState) // เพิ่มตรงนี้เพื่อให้เลื่อนหน้าจอได้
             .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
         // Profile Image
         Box(
             modifier = Modifier
-                .size(120.dp)
+                .size(100.dp)
                 .clip(CircleShape)
                 .border(2.dp, GoldAccent, CircleShape)
                 .background(MaterialTheme.colorScheme.surface),
@@ -155,12 +157,12 @@ fun ProfileScreen(
             Icon(
                 imageVector = Icons.Filled.Person,
                 contentDescription = null,
-                modifier = Modifier.size(80.dp),
+                modifier = Modifier.size(60.dp),
                 tint = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(12.dp))
 
         // User Info
         Text(
@@ -175,7 +177,7 @@ fun ProfileScreen(
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
 
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(24.dp))
 
         // Stats Card
         Row(
@@ -189,7 +191,7 @@ fun ProfileScreen(
             StatItem(label = "ร้านโปรด", value = "${favorites.size}")
         }
 
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(24.dp))
 
         // Settings Options
         Column(modifier = Modifier.fillMaxWidth()) {
@@ -198,7 +200,7 @@ fun ProfileScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 12.dp),
+                    .padding(vertical = 8.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
@@ -240,7 +242,7 @@ fun ProfileScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 12.dp),
+                    .padding(vertical = 8.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
@@ -268,7 +270,6 @@ fun ProfileScreen(
                 )
             }
 
-            // Test Notification Button
             ProfileOptionItem(
                 icon = Icons.Filled.NotificationsActive,
                 label = "ส่งแจ้งเตือนทดสอบ",
@@ -310,6 +311,8 @@ fun ProfileScreen(
             ) {
                 Text("ออกจากระบบ", color = androidx.compose.ui.graphics.Color.Red)
             }
+            
+            Spacer(modifier = Modifier.height(32.dp)) // เผื่อระยะด้านล่างสุด
         }
     }
 }
