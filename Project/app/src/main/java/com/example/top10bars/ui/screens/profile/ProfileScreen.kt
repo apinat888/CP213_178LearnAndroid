@@ -25,6 +25,7 @@ import com.example.top10bars.data.local.NotificationManager
 import com.example.top10bars.data.local.ThemeManager
 import com.example.top10bars.data.local.UserManager
 import com.example.top10bars.ui.theme.*
+import com.example.top10bars.utils.NotificationHelper
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -266,6 +267,18 @@ fun ProfileScreen(
                     )
                 )
             }
+
+            // Test Notification Button
+            ProfileOptionItem(
+                icon = Icons.Filled.NotificationsActive,
+                label = "ส่งแจ้งเตือนทดสอบ",
+                onClick = {
+                    NotificationHelper(context).sendNotification(
+                        title = "NightPick ทดสอบ!",
+                        message = "ระบบแจ้งเตือนร้านโปรดทำงานปกติแล้วครับ 🍸"
+                    )
+                }
+            )
 
             ProfileOptionItem(
                 icon = Icons.Filled.Share,
